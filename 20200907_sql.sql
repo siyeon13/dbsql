@@ -62,7 +62,18 @@ ROWNUM : 1 부터 읽어야 된다.
                 ORDER BY ename ASC))
                  WHERE rn >=11 AND rn <= 20;
                 
+                * SELECT 절이 ORDER BY 절보다 먼저 실행된다 *
+               
+                SELECT * 
+                FROM
+                (SELECT ROWNUM rn, empno, ename
+                FROM 
+                (SELECT empno, ename
+                FROM emp
+                ORDER BY ename ASC))
+                WHERE rn >=11 AND rn <= 14;
                 
+     
                 SELECT * 
                 FROM dual;
                 
@@ -70,7 +81,7 @@ ROWNUM : 1 부터 읽어야 된다.
                 FROM dual;
             
   oracle 함수 분류
-1. SINGLE ROW FUNXTION :  단일 행을 작업의 기준, 결과도 한건 반환
+1. SINGLE ROW FUNCTION :  단일 행을 작업의 기준, 결과도 한건 반환
 2. MULTI ROW FUNCTION : 여러행을 작업의 기주느 하나의 행동결과고 별견
 
 dual 테이블
@@ -78,8 +89,9 @@ dual 테이블
 3.하나의 행만 존재
 ****** 
 
-SELECT enmno,ename, LENGTH('hello')
+SELECT empno,ename, LENGTH('hello')
 FROM emp;
+
 SELECT em,ename,
                 
             
@@ -98,7 +110,7 @@ SELECT em,ename,
     -인덱스 사용관련
     
     문자열 관련함수
-    SELECT CONCAT('Hello',', World') concat,
+    SELECT CONCAT('Hello'    ,   ', World') concat,
             SUBSTR('Hello, World', 1, 5) subsr,
             SUBSTR('Hello, World', 5) substr2,
             LENGTH('Hello, World') length,
@@ -142,11 +154,12 @@ MOD : 나머지를 구하는 함수
                 TRUNC(105.55, -1)trunc4  
         FROM dual;     
   
-  TRUSC : 버림 함수 (내림)              
-        SELECT TRUNC(105.54, 1)trunc,
-                TRUNC(105.55, 1)trunc2,
-                TRUNC(105.55, 0)trunc3,  
-                TRUNC(105.55, -1)trunc4  
+  TRUSC : 버림 함수 (내림)    
+  
+        SELECT MOD(105.54, 1)mod,
+                MOD(105.55, 1)mod2,
+                MOD(105.55, 0)mod3,  
+                MOD(105.55, -1)mod4  
         FROM dual;              
                 
 MOD : 나머지를 구하는 함수
