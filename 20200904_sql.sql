@@ -537,6 +537,11 @@ SELECT *
 FROM emp
 WHERE job = 'SALESMAN' OR empno BETWEEN 7800 AND 7899;
 
+실습 14]
+SELECT *
+FROM emp
+WHERE job = 'SALESMAN' OR empno LIKE '78%'
+AND hiredate >= TO_DATE ('1981/06/01', 'YYYY/MM/DD');
 
 SELECT *
 FROM emp
@@ -546,10 +551,6 @@ AND hiredate >= TO_DATE ('1981/06/01', 'YYYY/MM/DD');
 조건1 OR (조건2 AND 조건3)   ->AND 연산이 OR 보다 우선순위가 높다
                             -> OR 연산을 먼저 하려면 () 괄호를 친다.
 
-실습 14]
-SELECT emp
-FROM emp
-WHERE job = 'SALESMAN' OR
 
 
 
@@ -734,4 +735,6 @@ FROM
     (SELECT  empno, ename
     FROM emp
     ORDER BY ename) a;
+    
+    
 
