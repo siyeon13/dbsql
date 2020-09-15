@@ -380,6 +380,12 @@ FROM member
 WHERE mem_name LIKE '%이%';
 
 
+SELECT empno "ename"  
+FROM emp;
+
+SELECT *
+FROM emp
+WHERE 10 BETWEEN 10 AND 50;
 
 
 
