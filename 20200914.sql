@@ -432,7 +432,6 @@ FROM emp;
                     FROM emp);
 
 
-
 SELECT dname
 FROM dept
 WHERE dept = 30;
