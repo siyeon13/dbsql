@@ -302,6 +302,41 @@ WHERE pid IN (SELECT pid
                     
 실습 7] 과제
 
+SELECT cycle.cid, customer.cnm, cycle.pid, product.pnm, cycle.day, cycle.cnt
+FROM cycle, customer, product
+WHERE cycle.cid = 1
+AND cycle.cid = customer.cid
+AND cycle.pid = product.pid
+AND cycle.pid IN (SELECT pid
+                FROM cycle
+                WHERE cid = 2);
+SELECT *
+FROM customer;
+                
+SELECT cycle.cid, customer.cnm, cycle.pid, product.pnm, cycle.day, cycle.cnt
+FROM cycle, product, customer
+WHERE cycle.cid = 1
+AND cycle.cid = customer.cid
+AND cycle.pid = product.pid
+AND cycle.pid IN (SELECT pid
+                  FROM cycle
+                  WHERE cid = 2);
+                
+ SELECT cid, pid, day, cnt
+ FROM cycle
+ WHERE cid = 1 
+ AND pid IN (SELECT pid
+                FROM cycle
+                WHERE cid = 2);
+                
+                
+                
+                
+                
+                
+                
+                
+                
 
 2항 연산자 : 1 + 2
 3항 연산자 : int a + b == c ? 1 : 2;
