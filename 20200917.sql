@@ -89,9 +89,9 @@ WHERE empno = 9000;
 UPDATE emp SET deptno = (SELECT deptno
                             FROM emp
                             WHERE ename = 'SMITH'),
-                            job = (SELECT job
-                                    FROM emp
-                                    WHERE ename = 'SMITH')
+               job = (SELECT job
+                      FROM emp
+                      WHERE ename = 'SMITH')
 WHERE empno = 9000;
 
 SELECT * 
@@ -134,7 +134,6 @@ DBMS는 복구를 위해 로그를 남긴다
 
 DELETE emp;
 TRUNCATE TABLE emp;
-
 
 SELECT *
 FROM fastfood a, fastfood b, fastfood c, fastfood d
