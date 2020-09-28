@@ -67,6 +67,12 @@ CREATE INDEX idx_dept_n_03 ON dept (deptno);
 CREATE INDEX idx_emp_n_04 ON emp (sal);
 CREATE UNIQUE INDEX idx_emp_u_05 ON emp (mgr,empno,deptno);
 --6번은 만들지 않음
+ DROP INDEX IDX_EMP_N_02;
+ DROP INDEX IDX_EMP_N_04;
+ DROP INDEX IDX_EMP_U_01;
+ DROP INDEX IDX_EMP_U_05;
+ 
+ 
  
  --실습 3 (선생님)
  1) empno(=)
@@ -86,8 +92,10 @@ ALTER TABLE emp DROP CONSTRAINT PK_emp;
 
 EXPLAIN PLAN FOR
 SELECT *
-FROM emp
-WHERE empno = :empno;
+FROM emp, dept
+WHERE emp.deptno = dept.deptno
+AND  emp.deptno = :deptno
+AND  emp.empno LIKE :ename || '%';
 
 SELECT *
 FROM TABLE(dbms_xplan.display);
@@ -211,4 +219,76 @@ SELECT 9998, 'sally' FROM dual;
 SELECT *
 FROM emp_test2;
 
+ 
+ 
+ 
+ 
+ 
+ ----실습 4
+ CREATE INDEX idx_emp_01 ON emp (empno);
+ CREATE INDEX idx_emp_02 ON emp (deptno, sal);
+ CREATE INDEX idx_dept_03 ON dept (deptno, loc);
+ 
+ -- CREATE INDEX idx_dept_04 ON dept (deptno, loc);   더 효율
+ --drop
+ DROP INDEX IDX_EMP_02;
+DROP INDEX IDX_EMP_03;
+DROP INDEX IDX_EMP_U_01;
+DROP INDEX idx_emp_03;
+ 
+ 
+ --1.
+ 
+ EXPLAIN PLAN FOR
+ SELECT *
+ FROM emp
+ WHERE empno = :empno;
+ 
+ SELECT *
+ FROM TABLE(dbms_xplan.display);
+ 
+ 
+ 2.
+ EXPLAIN PLAN FOR
+ SELECT *
+ FROM dept
+ WHERE deptno = :deptno;
+ 
+ SELECT *
+ FROM TABLE(dbms_xplan.display);
+ 
+ 3.
+  EXPLAIN PLAN FOR
+ SELECT *
+ FROM emp, dept
+ WHERE emp.deptno = dept.deptno
+ AND emp.deptno = :deptno
+ AND emp.empno LIKE :empno || '%';
+ 
+ SELECT *
+ FROM TABLE(dbms_xplan.display);
+ 
+ 4.
+ EXPLAIN PLAN FOR
+ SELECT *
+ FROM emp
+ WHERE sal BETWEEN : st_sal AND :ed_sal
+ AND deptno = :deptno;
+
+ SELECT *
+ FROM TABLE(dbms_xplan.display);
+ 
+ 
+ 5.
+ EXPLAIN PLAN FOR
+ SELECT *
+ FROM emp, dept
+ WHERE emp.deptno = dept.deptno
+ AND emp.deptno = :deptno
+ AND dept.loc = :loc;
+
+ SELECT *
+ FROM TABLE(dbms_xplan.display);
+ 
+ 
  
